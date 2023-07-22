@@ -2,33 +2,48 @@ package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.repository.StudentRepository;
+import java.util.List;
 
-import java.util.HashMap;
+import static org.apache.logging.log4j.ThreadContext.get;
+
 @Service
 public class StudentServiceImpl implements StudentService {
 
-    private final HashMap<Long, Student> students = new HashMap<>();
-    private long count = 0;
+    private final StudentRepository studentRepository;
 
+    public StudentServiceImpl(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+    @Override
     public Student addStudent(Student student){
-        student.setId(count++);
-        students.put(student.getId(), student);
-        return student;
+        return studentRepository.save(student);
     }
-
+    @Override
     public Student findStudent(long id){
-        return students.get(id);
+        return studentRepository.findById(id).orElse(null);
     }
 
-    public Student editStudent(Student student){
-        if (!students.containsKey(student.getId())){
+    @Override
+    public Student updateStudent(long id, Student student) {
+        Student studentFromDb = get(id);
+        if (studentFromDb == null){
             return null;
         }
-        students.put(student.getId(),student);
-        return student;
+        studentFromDb.setName(student.getName());
+        studentFromDb.setAge(student.getAge());
+        return studentRepository.save(studentFromDb);
     }
 
-    public void deleteStudent(long id){
-        students.remove(id);
+    @Override
+    public void deleteStudent(long id) {
+        studentRepository.deleteById(id);
     }
+
+    @Override
+    public List<Student> getStudentByAge(int age){
+        return studentRepository.findByAge(age);
+    }
+
+
 }
