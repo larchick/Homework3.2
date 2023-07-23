@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentServiceImpl;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -31,10 +33,10 @@ public class StudentController {
     }
 
     @PutMapping
-    public ResponseEntity<Student> editStudent(@RequestBody Student student) {
-        Student foundStudent = studentService.editStudent(student);
+    public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
+        Student foundStudent = studentService.updateStudent(student);
         if (foundStudent == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(foundStudent);
     }
@@ -45,9 +47,9 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
-
-
-
-
+    @GetMapping("/by-age")
+    public List<Student> getStudentByAge(@PathVariable int age){
+        return studentService.getStudentByAge(age);
+    }
 
 }

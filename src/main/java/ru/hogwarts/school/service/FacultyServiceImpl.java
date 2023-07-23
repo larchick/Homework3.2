@@ -5,10 +5,8 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
-import java.util.HashMap;
-import java.util.List;
 
-import static org.apache.logging.log4j.ThreadContext.get;
+import java.util.List;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
@@ -28,14 +26,8 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public Faculty editFaculty(long id, Faculty faculty) {
-        Faculty facultyFromDb = get(id);
-        if (facultyFromDb == null){
-            return null;
-        }
-        facultyFromDb.setColor(faculty.getColor());
-        facultyFromDb.setName(faculty.getName());
-        return facultyRepository.save(facultyFromDb);
+    public Faculty updateFaculty(Faculty faculty) {
+        return facultyRepository.save(faculty);
     }
 
     @Override

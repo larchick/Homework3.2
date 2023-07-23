@@ -7,6 +7,7 @@ import java.util.List;
 
 import static org.apache.logging.log4j.ThreadContext.get;
 
+
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -25,14 +26,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student updateStudent(long id, Student student) {
-        Student studentFromDb = get(id);
-        if (studentFromDb == null){
-            return null;
-        }
-        studentFromDb.setName(student.getName());
-        studentFromDb.setAge(student.getAge());
-        return studentRepository.save(studentFromDb);
+    public Student updateStudent(Student student) {
+        return studentRepository.save(student);
     }
 
     @Override
