@@ -20,14 +20,21 @@ public class FacultyServiceImpl implements FacultyService {
         return facultyRepository.save(faculty);
 
     }
+
     @Override
-    public Faculty findFaculty(long id){
+    public Faculty findFaculty(Long id) {
         return facultyRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Faculty updateFaculty(Faculty faculty) {
-        return facultyRepository.save(faculty);
+    public Faculty updateFaculty(Long id, Faculty faculty) {
+        Faculty savedFaculty = findFaculty(id);
+        if (savedFaculty == null) {
+            return null;
+        }
+        savedFaculty.setName(faculty.getName());
+        savedFaculty.setColor(faculty.getColor());
+        return facultyRepository.save(savedFaculty);
     }
 
     @Override
@@ -42,6 +49,11 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public List<Faculty> getFacultiesByColorOrName(String color, String name) {
         return facultyRepository.findByColorIgnoreCaseOrNameIgnoreCase(color, name);
+    }
+
+    @Override
+    public List<Faculty> getAllFaculties() {
+        return facultyRepository.findAll();
     }
 
     @Override

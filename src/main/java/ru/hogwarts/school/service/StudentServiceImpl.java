@@ -27,8 +27,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student updateStudent(Student student) {
-        return studentRepository.save(student);
+    public Student updateStudent(Long id, Student student) {
+        Student savedStudent = findStudent(id);
+        if (savedStudent == null) {
+            return null;
+        }
+        savedStudent.setName(student.getName());
+        savedStudent.setAge(student.getAge());
+        return studentRepository.save(savedStudent);
     }
 
     @Override
@@ -51,6 +57,11 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findById(id)
                 .map(Student::getFaculty)
                 .orElse(null);
+    }
+
+    @Override
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
     }
 
 

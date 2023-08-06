@@ -46,13 +46,14 @@ public class StudentController {
         return studentService.addStudent(student);
     }
 
-    @PutMapping
-    public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
-        Student foundStudent = studentService.updateStudent(student);
-        if (foundStudent == null) {
-            return ResponseEntity.notFound().build();
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Student> update(@PathVariable Long id, @RequestBody Student student) {
+        Student savedStudent = studentService.updateStudent(id, student);
+        if (savedStudent == null) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            return ResponseEntity.ok(savedStudent);
         }
-        return ResponseEntity.ok(foundStudent);
     }
 
     @DeleteMapping("/{id}")
