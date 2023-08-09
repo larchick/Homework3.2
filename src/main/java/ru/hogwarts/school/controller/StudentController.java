@@ -21,7 +21,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/students")
 public class StudentController {
 
     private final StudentServiceImpl studentService;
