@@ -1,16 +1,14 @@
 package ru.hogwarts.school.controller.WebMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONObject;
+import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.hogwarts.school.controller.StudentController;
@@ -19,17 +17,14 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.AvatarService;
 import ru.hogwarts.school.service.StudentService;
 
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import static java.lang.reflect.Array.get;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(StudentController.class)
@@ -49,8 +44,8 @@ public class StudentControllerTestWebMvc {
     @Test
     public void addStudentTest() throws Exception {
         Long id = 1L;
-        String name = "Harry";
-        int age = 11;
+        String name = "Bob";
+        int age = 12;
 
         Student student = new Student();
         student.setId(id);
@@ -73,8 +68,8 @@ public class StudentControllerTestWebMvc {
     @Test
     public void getStudentByIdTest() throws Exception {
         Long id = 1L;
-        String name = "Harry";
-        int age = 11;
+        String name = "Bob";
+        int age = 12;
 
         JSONObject studentObject = new JSONObject();
         studentObject.put("name", name);
@@ -101,8 +96,8 @@ public class StudentControllerTestWebMvc {
     @Test
     public void deleteStudentTest() throws Exception {
         Long id = 1L;
-        String name = "Harry";
-        int age = 11;
+        String name = "Bob";
+        int age = 12;
 
         JSONObject studentObject = new JSONObject();
         studentObject.put("name", name);
@@ -127,8 +122,8 @@ public class StudentControllerTestWebMvc {
     public void getStudentsByAgeTest() throws Exception {
         List<Student> students = new ArrayList<>();
         Long id = 1L;
-        String name = "Harry";
-        int age = 11;
+        String name = "Bob";
+        int age = 12;
 
         Student student = new Student();
         student.setId(id);
@@ -151,8 +146,8 @@ public class StudentControllerTestWebMvc {
     public void getStudentBetweenAge() throws Exception {
         List<Student> students = new ArrayList<>();
         Long id = 1L;
-        String name = "Harry";
-        int age = 11;
+        String name = "Bob";
+        int age = 12;
         int minAge = 10;
         int maxAge = 12;
 
@@ -178,12 +173,12 @@ public class StudentControllerTestWebMvc {
     @Test
     public void updateStudentTest() throws Exception {
         Long id = 1L;
-        String name = "Harry";
-        int age = 11;
+        String name = "Bob";
+        int age = 12;
 
-        String facultyName = "Hufflepuff";
+        String facultyName = "Гриффиндор";
         Long facultyID = 1L;
-        String color = "Red";
+        String color = "Красный";
 
         JSONObject facultyObject = new JSONObject();
         facultyObject.put("id", facultyID);
@@ -222,12 +217,12 @@ public class StudentControllerTestWebMvc {
     @Test
     public void getFacultyOfStudentTest() throws Exception {
         Long id = 1L;
-        String name = "Harry";
-        int age = 11;
+        String name = "Bob";
+        int age = 12;
 
-        String facultyName = "Hufflepuff";
+        String facultyName = "Гриффиндор";
         Long facultyID = 1L;
-        String color = "Red";
+        String color = "Красный";
 
         Faculty faculty = new Faculty();
         faculty.setId(facultyID);
