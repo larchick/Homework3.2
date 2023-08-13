@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.hogwarts.school.dto.AvatarDTO;
 import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.service.AvatarService;
 
@@ -20,7 +21,7 @@ public class AvatarController {
     }
 
     @GetMapping
-    public List<Avatar> getPaginatedAvatars(
+    public List<AvatarDTO> getPaginatedAvatars(
             @RequestParam int pageNumber,
             @RequestParam int pageSize
     ){
