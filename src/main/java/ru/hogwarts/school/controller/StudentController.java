@@ -42,7 +42,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public Student createStudent(@RequestBody Student student) {
+    public Student addStudent(@RequestBody Student student) {
         return studentService.addStudent(student);
     }
 
@@ -109,5 +109,25 @@ public class StudentController {
             is.transferTo(os);
         }
     }
+
+    @GetMapping(value = "/total-number")
+    public int getNumberOfStudents(){
+        return studentService.getNumberOfStudents();
+
+    }
+
+    @GetMapping(value = "/average-age")
+    public int getAverageAgeStudents(){
+        return studentService.getAverageAgeStudents();
+
+    }
+
+    @GetMapping(value = "/last-five")
+    public List<Student> getLastFiveStudents(){
+
+        return studentService.getLastFiveStudents();
+    }
+
+
 
 }
