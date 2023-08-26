@@ -128,6 +128,16 @@ public class StudentController {
         return studentService.getLastFiveStudents();
     }
 
+    @GetMapping(value = "/names-started-from-a")
+    public List<String> getStudentNamesStartedFromA(){
+        return studentService.getStudentNamesStartedFromA();
+    }
+
+    @GetMapping(value = "/stream-average-age")
+    public Double getAverageAge(){
+        return studentService.getAverageAge();
+    }
+
 
 
 }

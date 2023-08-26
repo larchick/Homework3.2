@@ -1,13 +1,16 @@
 package ru.hogwarts.school.service;
 
+import liquibase.pro.packaged.C;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -71,6 +74,15 @@ public class FacultyServiceImpl implements FacultyService {
         logger.info("Method getStudents was invoked!");
         return facultyRepository.findById(id)
                 .map(Faculty:: getStudents)
+                .orElse(null);
+    }
+
+    @Override
+    public String getTheLongestName() {
+        return facultyRepository.findAll()
+                .stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparing(String::length))
                 .orElse(null);
     }
 

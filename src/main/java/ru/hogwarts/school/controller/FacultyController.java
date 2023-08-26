@@ -57,10 +57,15 @@ public class FacultyController {
         return facultyService.getFacultiesByColorOrName(color, name);
     }
 
-    @GetMapping("/{id}/student")
+    @GetMapping("/{id}/students")
     public List<Student> getStudents(@PathVariable Long id){
 
         return facultyService.getStudents(id);
+    }
+
+    @GetMapping("/the-longest-name")
+    public String getTheLongestName(){
+        return facultyService.getTheLongestName();
     }
 
 

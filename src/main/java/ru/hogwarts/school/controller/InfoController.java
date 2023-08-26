@@ -15,4 +15,10 @@ public class InfoController {
     public int getPort(){
         return port;
     }
+
+    @GetMapping("/sum")
+    public String sum(){
+
+        int sum = Stre
+    }
 }
