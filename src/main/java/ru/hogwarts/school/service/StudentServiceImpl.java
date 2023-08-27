@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,13 +20,15 @@ public class StudentServiceImpl implements StudentService {
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
+
     @Override
-    public Student addStudent(Student student){
+    public Student addStudent(Student student) {
         logger.info("Method add was invoked!");
         return studentRepository.save(student);
     }
+
     @Override
-    public Student findStudent(long id){
+    public Student findStudent(long id) {
         logger.info("Method get was invoked!");
         return studentRepository.findById(id).orElse(null);
     }
@@ -49,7 +52,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getStudentByAge(int age){
+    public List<Student> getStudentByAge(int age) {
         logger.info("Method getStudentByAge was invoked!");
         return studentRepository.findByAge(age);
     }
@@ -106,5 +109,66 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
+    @Override
+    public void threads() {
+        List<Student> students = studentRepository.findAll();
 
+        printName(students.get(0));
+        printName(students.get(1));
+
+
+        new Thread(() -> {
+            printName(students.get(2));
+            printName(students.get(3));
+        }).start();
+
+        new Thread(() -> {
+            printName(students.get(4));
+            printName(students.get(5));
+        }).start();
+
+    }
+
+    private void printName(Student student) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(student.getName());
+
+    }
+
+    @Override
+    public void threadsSync() {
+
+        List<Student> students = studentRepository.findAll();
+
+        printNameSynchronized(students.get(0));
+        printNameSynchronized(students.get(1));
+
+
+        new Thread(() -> {
+            printNameSynchronized(students.get(2));
+            printNameSynchronized(students.get(3));
+        }).start();
+
+        new Thread(() -> {
+            printNameSynchronized(students.get(4));
+            printNameSynchronized(students.get(5));
+        }).start();
+
+
+    }
+
+    private synchronized void printNameSynchronized(Student student) {
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println(student.getName());
+        }
 }

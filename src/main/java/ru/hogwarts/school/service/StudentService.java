@@ -20,6 +20,8 @@ public interface StudentService {
     List<String> getStudentNamesStartedFromA();
     Double getAverageAge();
 
+    void threads();
+    void threadsSync();
 
 
 }
